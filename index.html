@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stun Tierlist</title>
+  <style>
+    body { background: #111; color: white; font-family: sans-serif; padding: 2em; }
+    .tier { background: #222; padding: 1em; border-radius: 8px; margin-bottom: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Live Stun Tierlist</h1>
+  <div id="tiers">Loading...</div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const supabase = createClient(
+      'https://deogpwfjuqrledlyrnhy.supabase.co/',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlb2dwd2ZqdXFybGVkbHlybmh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyNzgxMTAsImV4cCI6MjA2ODg1NDExMH0.r64_NWDWS4mV67KrqKVCg0eAwBnRZtoAqb1U2THpK-Y'
+    );
+
+    const container = document.getElementById('tiers');
+
+    function displayTier(tier) {
+      const div = document.createElement('div');
+      div.className = 'tier';
+      div.innerHTML = `
+        <strong>${tier.player_ign}</strong><br>
+        Mode: ${tier.game_mode} | Region: ${tier.region}<br>
+        Tier: <b>${tier.tier_value}</b>
+      `;
+      container.prepend(div);
+    }
+
+    // Load existing tiers on page load
+    const { data } = await supabase
+      .from('tiers')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(20);
+      
+    container.innerHTML = '';
+    data.forEach(displayTier);
+
+    // Listen for new tier updates (realtime)
+    supabase
+      .channel('tiers')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'tiers' },
+        (payload) => {
+          displayTier(payload.new);
+        }
+      )
+      .subscribe();
+  </script>
+</body>
+</html>
