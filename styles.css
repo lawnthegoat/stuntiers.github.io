@@ -64,3 +64,27 @@ input#searchInput {
   border-radius: 8px;
   display: inline-block;
 }
+
+.icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.discord-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: #5865F2;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.discord-button:hover {
+  background-color: #4752c4;
+}
