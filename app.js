@@ -1,6 +1,6 @@
 
-const supabaseUrl = "https://your-project.supabase.co";
-const supabaseKey = "your-anon-key";
+const supabaseUrl = "https://deogpwfjuqrledlyrnhy.supabase.co/";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlb2dwd2ZqdXFybGVkbHlybmh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyNzgxMTAsImV4cCI6MjA2ODg1NDExMH0.r64_NWDWS4mV67KrqKVCg0eAwBnRZtoAqb1U2THpK-Y";
 const BOT_ID = "1392227323109183498";
 
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
