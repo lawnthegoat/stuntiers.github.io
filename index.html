@@ -37,7 +37,7 @@
       .from('tiers')
       .select('*')
       .order('created_at', { ascending: false })
-      .limit(20);
+      .limit(500);
       
     container.innerHTML = '';
     data.forEach(displayTier);
